@@ -1,0 +1,26 @@
+{
+  "name": "lint-workspaces",
+  "version": "1.0.0",
+  "description": "Utility to lint an NPM workspaces project efficiently",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachstence/lint-workspaces.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zachstence/lint-workspaces/issues"
+  },
+  "homepage": "https://github.com/zachstence/lint-workspaces#readme",
+  "bin": {
+    "lint-workspaces": "index.ts"
+  },
+  "devDependencies": {
+    "ts-node": "^10.7.0"
+  }
+}
