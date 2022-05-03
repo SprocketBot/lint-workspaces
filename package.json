@@ -1,25 +1,25 @@
 {
-  "name": "lint-workspaces",
+  "name": "@sprocketbot/lint-workspaces",
   "version": "1.0.0",
   "description": "Utility to lint an NPM workspaces project efficiently",
-  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SprocketBot/lint-workspaces.git"
+  },
+  "homepage": "https://github.com/SprocketBot/lint-workspaces#readme",
+  "bugs": {
+    "url": "https://github.com/SprocketBot/lint-workspaces/issues"
+  },
+  "license": "MIT",
+  "author": "https://github.com/zachstence",
+
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zachstence/lint-workspaces.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zachstence/lint-workspaces/issues"
-  },
-  "homepage": "https://github.com/zachstence/lint-workspaces#readme",
   "bin": {
-    "lint-workspaces": "./bin/lint-workspaces.js"
+    "lint-workspaces": "bin/lint-workspaces.js"
   },
   "devDependencies": {
     "@types/node": "^17.0.31",
