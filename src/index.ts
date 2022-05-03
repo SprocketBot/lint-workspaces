@@ -1,6 +1,8 @@
-#!node_modules/.bin/ts-node
-
 import { exec } from "child_process";
+
+
+
+console.log(process.cwd())
 
 const WORKSPACES = [
     "common",
