@@ -2,24 +2,14 @@ import { exec } from "child_process";
 import { readFileSync } from "fs";
 import { cwd } from "process";
 import { PackageJson } from "./types";
-import { determineWorkspace } from "./util";
+import { sortFiles } from "./util";
 
+// Load and sort files to lint
 const files = process.argv.slice(2);
-
 const { workspaces } = JSON.parse(readFileSync(`${cwd()}/package.json`).toString()) as PackageJson
+const toLintByWorkspace = sortFiles(files, workspaces);
 
-// Get unique array of files to lint
-const toLint = [...new Set(files)]
-
-const initial: Record<string, string[]> = {}
-workspaces.forEach(workspace => initial[workspace] = [])
-
-const toLintByWorkspace = toLint.reduce<Record<string, string[]>>((acc, v) => {
-    const workspace = determineWorkspace(workspaces, v);
-    if (workspace) acc[workspace].push(v);
-    return acc;
-}, initial);
-
+// Lint each workspace in a promise
 const promises: Promise<void>[] = [];
 
 for (const workspace of workspaces) {
@@ -30,9 +20,11 @@ for (const workspace of workspaces) {
         exec(`npm run lint --workspace=${workspace} -- --fix -c ${cwd()}/${workspace}/.eslintrc.cjs ${files.join(" ")}`,
             (err, stdout) => {
                 if (err) {
+                    // If lint fails, log and reject
                     console.log(stdout);
                     reject();
                 } else {
+                    // If lint successful, stay quiet
                     resolve();
                 }
             }
@@ -42,6 +34,7 @@ for (const workspace of workspaces) {
     promises.push(p);
 }
 
+// If any promises reject, exit with error
 Promise.allSettled(promises).then(results => {
     const failed = results.some(p => p.status === "rejected");
     if (failed) {
